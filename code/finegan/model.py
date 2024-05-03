@@ -2,10 +2,10 @@ import sys
 import torch
 import torch.nn as nn
 import torch.nn.parallel
-from miscc.config import cfg
-from torch.autograd import Variable
 import torch.nn.functional as F
 from torch.nn import Upsample
+
+from finegan.miscc.config import cfg
 
 
 class GLU(nn.Module):

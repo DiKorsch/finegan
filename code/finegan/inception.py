@@ -2,7 +2,8 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 import torch.utils.model_zoo as model_zoo
-from miscc.config import cfg
+
+from finegan.miscc.config import cfg
 
 
 __all__ = ['Inception3', 'inception_v3']
@@ -28,9 +29,9 @@ def inception_v3(pretrained=True, **kwargs):
         pretrained_dict = model_zoo.load_url(model_urls['inception_v3_google'])
         model_dict = model.state_dict()
         pretrained_dict = {k: v for k, v in pretrained_dict.items() if k in model_dict}
-        model_dict.update(pretrained_dict) 
+        model_dict.update(pretrained_dict)
         model.load_state_dict(model_dict)
-	print ("Inception pretrained on IMAGENET loaded")
+        print ("Inception pretrained on IMAGENET loaded")
         return model
 
     return Inception3(**kwargs)
@@ -329,5 +330,3 @@ class BasicConv2d(nn.Module):
         x = self.conv(x)
         x = self.bn(x)
         return F.relu(x, inplace=True)
-
-

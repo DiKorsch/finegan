@@ -1,5 +1,3 @@
-from __future__ import print_function
-import sys
 import numpy as np
 import os
 import random
@@ -13,15 +11,14 @@ import torch.nn as nn
 from torch.autograd import Variable
 import torch.optim as optim
 import torchvision.utils as vutils
-from torch.nn.functional import softmax, log_softmax
-from torch.nn.functional import cosine_similarity
+from torch.nn.functional import softmax
 from tensorboardX import summary
 from tensorboardX import FileWriter
 
-from miscc.config import cfg
-from miscc.utils import mkdir_p
+from finegan.miscc.config import cfg
+from finegan.miscc.utils import mkdir_p
 
-from model import G_NET, D_NET
+from finegan.model import G_NET, D_NET
 
 
 # ################## Shared functions ###################

@@ -7,18 +7,18 @@ import torchvision.transforms as transforms
 import argparse
 import os
 import random
-import sys
 import pprint
 import datetime
 import dateutil.tz
 import time
 import pickle
 
-dir_path = (os.path.abspath(os.path.join(os.path.realpath(__file__), './.')))
-sys.path.append(dir_path)
+# import sys
+# dir_path = (os.path.abspath(os.path.join(os.path.realpath(__file__), './.')))
+# sys.path.append(dir_path)
 
-
-from miscc.config import cfg, cfg_from_file
+from finegan.miscc.config import cfg
+from finegan.miscc.config import cfg_from_file
 
 
 def parse_args():
@@ -50,7 +50,7 @@ if __name__ == "__main__":
         print('Using config:')
         pprint.pprint(cfg)
 
-    if not cfg.TRAIN.FLAG:
+    if not cfg.TRAIN.FLAG and args.manualSeed is None:
         args.manualSeed = 45   # Change this to have different random seed during evaluation
 
     elif args.manualSeed is None:
@@ -62,7 +62,7 @@ if __name__ == "__main__":
 
     # Evaluation part
     if not cfg.TRAIN.FLAG:
-        from trainer import FineGAN_evaluator as evaluator
+        from finegan.trainer import FineGAN_evaluator as evaluator
         algo = evaluator()
         algo.evaluate_finegan()
 
@@ -90,7 +90,7 @@ if __name__ == "__main__":
             transforms.RandomHorizontalFlip()])
 
 
-        from datasets import Dataset
+        from finegan.datasets import Dataset
         dataset = Dataset(cfg.DATA_DIR,
                               base_size=cfg.TREE.BASE_SIZE,
                               transform=image_transform)
@@ -101,7 +101,7 @@ if __name__ == "__main__":
             drop_last=True, shuffle=bshuffle, num_workers=int(cfg.WORKERS))
 
 
-        from trainer import FineGAN_trainer as trainer
+        from finegan.trainer import FineGAN_trainer as trainer
         algo = trainer(output_dir, dataloader, imsize)
 
         start_t = time.time()
