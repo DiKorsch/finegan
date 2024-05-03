@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+
 from __future__ import print_function
 import torch
 import torchvision.transforms as transforms
@@ -57,7 +59,7 @@ if __name__ == "__main__":
     torch.manual_seed(args.manualSeed)
     if cfg.CUDA:
         torch.cuda.manual_seed_all(args.manualSeed)
-    
+
     # Evaluation part
     if not cfg.TRAIN.FLAG:
         from trainer import FineGAN_evaluator as evaluator
